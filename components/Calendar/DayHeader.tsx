@@ -20,14 +20,21 @@ const getFirstDayOfMonth = today => {
 const getDaysInMonth = today => {
     return today.daysInMonth();
 };
-const DayHeader = () => {
+
+const DayHeader = ({startDate = 0}) => {
     const weekDays = moment.weekdaysShort();
+    if (startDate) {
+        for (let i = 0; i < startDate; i++) {
+            weekDays.push(weekDays.shift());
+        }
+    }
+
     const firstDayOfMonth = getFirstDayOfMonth(moment());
     let blanks: Array<string> = [];
     let daysInMonth: any = [];
     let rows = [];
     let cells = [];
-    for (let i = 0; i < +firstDayOfMonth; i++) {
+    for (let i = 0; i < +firstDayOfMonth - startDate; i++) {
         blanks.push('');
     }
 
